@@ -20,24 +20,55 @@
 
     <!-- Custom CSS -->
     <style type="text/css">
-    img {
-      height: 200px;
-      width: 250px;
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto;
+        grid-gap: 10px;
+        background-color: grey;
+        padding: 10px;
     }
 
-    #item {
-      border: 1px solid black;
-      width: 500px;
+    .grid-item {
+        background-color: white;
+
+        padding: 20px;
+    }
+
+
+    @media screen and (min-width: 600px) {
+        .grid-container {
+            
+            grid-template-columns: auto auto;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .grid-container {
+            
+            grid-template-columns: auto auto auto auto;
+        }
+    }
+
+
+    img {
+    	height: 200px;
+    	width: 250px;
+    }
+
+    .item {
+    	border: 1px solid black;
+    	//width: 500px;
     }
 
     a {
-      text-decoration: none;
-      color: black;
+    	text-decoration: none;
+    	color: black;
     }
 
     a:hover {
-      background-color: grey;
-      color: orange;
+    	background-color: grey;
+    	color: orange;
     }
 
     </style>
@@ -75,14 +106,14 @@ function search(){
     url += '?' + $.param({
         'api-key': "42775621bb0b4c3a980b695424ad93a0"
     });
-console.log(url);
+
 
 $.ajax({
   url: url,
   method: 'GET',
   success: (function(result) {
     const root = document.getElementById('a')
-    console.log(result.response.docs[0].web_url);
+
 
 
 
@@ -97,14 +128,14 @@ class Preview extends React.Component {
     }
 
   componentDidMount(){
-   console.log('################component did mount###############');
+   //console.log('################component did mount###############');
     var link = this.props.link
     var url = "https://api.linkpreview.net?key=5a8daa00dcae5967162a0b2dc0483ad3d0f47dfb1e9ac&q=";
     url += link;
-    console.log(url);
+
     
   $.ajax({
-    url: url, //"http://api.linkpreview.net/?key=123456&q=https://www.google.com", // put url instead of link
+    url: "http://api.linkpreview.net/?key=123456&q=https://www.google.com", // put url instead of link
     success: function(result){
                   
                   this.setState({
@@ -113,7 +144,7 @@ class Preview extends React.Component {
                     img: result.image,
                     adress: result.url
                   })
-                  console.log(result)
+
              }.bind(this)
 })
 }
@@ -121,15 +152,15 @@ class Preview extends React.Component {
   render(){
 
         const tab = <a href={this.state.adress}>
-              <table id="item">
-                    <thead>
-                      <th>News</th>
-                    </thead>
-                    <tbody>
-                      <tr><td><h1>{this.state.title}</h1></td></tr>
-                      <tr><td><h3>{this.state.description}</h3></td></tr>
-                      <tr><td><img src={this.state.img}></img></td></tr>
-                    </tbody>
+        	    <table class="grid-item">
+    	              <thead>
+    	              	<th>News</th>
+    	              </thead>
+    	              <tbody>
+    	              	<tr><td><h1>{this.state.title}</h1></td></tr>
+    	              	<tr><td><h3>{this.state.description}</h3></td></tr>
+    	              	<tr><td><img src={this.state.img}></img></td></tr>
+    	              </tbody>
                 </table>
             </a>
   return tab  
@@ -141,29 +172,15 @@ class Preview extends React.Component {
 
 
   function Geturls(props){
-    let rows = [];
-    for (var i=0; i<2; i++){
-        const row = <tr>
-                      <td>
-                        <Preview link={props.data.response.docs[i].web_url} />
-                        
-                      </td>
-                  </tr>
-        rows.push(row);
-        
+    let items = [];
+    for (var i=0; i<20; i++){
+        const item = <div class="item">
+        	            	<Preview link={props.data.response.docs[i].web_url} />    	       
+        	        </div>
+        items.push(item);
+            console.log(item)
     }
-    const table = <table>
-                    <thead>
-                      <th>NYT News</th>
-                    </thead>
-                    <tbody>
-                      {rows}
-                    </tbody>
-                  </table>
-    console.log(props.data.response.docs[0].web_url)
-        
-    console.log(url);
-    return table;
+    return <div class="grid-container">{items}</div>;
 }
 
     ReactDOM.render(<Geturls data={result}/>, document.getElementById('b'))
