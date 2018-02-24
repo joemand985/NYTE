@@ -1,59 +1,180 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Hello, world!</title>
-    <!-- Required meta tags -->
+
+<head>
+    <!-- meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <!-- React.js -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta description="Utilization of www.MusixMatch API">
+    <meta author="">
+    <title>NYTE</title>
+    <!-- React.js -->
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <!-- Babel -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/NYTE.css">
+    <!-- Custom CSS -->
+    <style type="text/css">
+    img {
+      height: 200px;
+      width: 250px;
+    }
+
+    #item {
+      border: 1px solid black;
+      width: 500px;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    a:hover {
+      background-color: grey;
+      color: orange;
+    }
+
+    </style>
+</head>
+
+<body>
+
+        <input type="text" id="year" placeholder="Year ..." >
+        <input type="text" id="month" placeholder="Month" >
+        <input type="submit" onclick="search()">
+
+        <div>
+
+        </div>
+
+    <div id="a"></div>
+    <div id="b"></div>
 
 
-  </head>
-  <body>
-    <h1>NYTE</h1>
-    <div id="abc"></div>
-    
-    <form action="">
-      Select date: 
-      <input type="month" name="bdaymonth">
-      <input type="submit">
-    </form>
-    <div id="root"/>
-    
+  <div id="comp">
+    <div id="pic"></div>
+    <div id="item"></div>
+</div>
+
 
 
     <script type="text/babel">
 
 
+function search(){
+    var year = document.getElementById("year");
+    var month = document.getElementById("month");
+    var url = "https://api.nytimes.com/svc/archive/v1/";
+    url += year.value + '/' + month.value + '.json';
+    url += '?' + $.param({
+        'api-key': "42775621bb0b4c3a980b695424ad93a0"
+    });
+console.log(url);
 
-      ReactDOM.render(
-  <h1>Hello, from React!</h1>,
-  document.getElementById('root')
-);
+$.ajax({
+  url: url,
+  method: 'GET',
+  success: (function(result) {
+    const root = document.getElementById('a')
+    console.log(result.response.docs[0].web_url);
 
+
+
+
+
+
+
+class Preview extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {title: 'a', description: 'a', img: 'a'};
+    }
+
+  componentDidMount(){
+   console.log('################component did mount###############');
+    var link = this.props.link
+    var url = "https://api.linkpreview.net?key=5a8daa00dcae5967162a0b2dc0483ad3d0f47dfb1e9ac&q=";
+    url += link;
+    console.log(url);
+    
+  $.ajax({
+    url: url, //"http://api.linkpreview.net/?key=123456&q=https://www.google.com", // put url instead of link
+    success: function(result){
+                  
+                  this.setState({
+                    title: result.title,
+                    description: result.description,
+                    img: result.image,
+                    adress: result.url
+                  })
+                  console.log(result)
+             }.bind(this)
+})
+}
+
+  render(){
+
+        const tab = <a href={this.state.adress}>
+              <table id="item">
+                    <thead>
+                      <th>News</th>
+                    </thead>
+                    <tbody>
+                      <tr><td><h1>{this.state.title}</h1></td></tr>
+                      <tr><td><h3>{this.state.description}</h3></td></tr>
+                      <tr><td><img src={this.state.img}></img></td></tr>
+                    </tbody>
+                </table>
+            </a>
+  return tab  
+}
+
+}
+
+
+
+
+  function Geturls(props){
+    let rows = [];
+    for (var i=0; i<2; i++){
+        const row = <tr>
+                      <td>
+                        <Preview link={props.data.response.docs[i].web_url} />
+                        
+                      </td>
+                  </tr>
+        rows.push(row);
+        
+    }
+    const table = <table>
+                    <thead>
+                      <th>NYT News</th>
+                    </thead>
+                    <tbody>
+                      {rows}
+                    </tbody>
+                  </table>
+    console.log(props.data.response.docs[0].web_url)
+        
+    console.log(url);
+    return table;
+}
+
+    ReactDOM.render(<Geturls data={result}/>, document.getElementById('b'))
+})
+})
+
+}
+
+
+
+                    
     </script>
+</body>
 
-
-
-
-
-    <!-- Optional JavaScript -->
-    <!-- <script src="js/NYTE.jsx" type="text/babel"></script>-->
-    <script src="js/NYTE.js">
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-  </body>
-</html>
