@@ -147,8 +147,8 @@ class Preview extends React.Component {
 
   render(){
 
-        const tab = <a href={this.state.adress}>
-        	    <table class="grid-item">
+        const tab = 
+        	    <table class="grid-item" onClick={() => console.log(JSON.stringify(this.state.details, null, 2))}>
     	              <thead>
     	              	<th>News</th>
     	              </thead>
@@ -160,8 +160,7 @@ class Preview extends React.Component {
 
     	              </tbody>
                 </table>
-            </a>
-   console.log(JSON.stringify(this.state.details)); 
+           
 
   return tab  
 }
