@@ -35,6 +35,10 @@
         padding: 20px;
     }
 
+    .grid-item:hover {
+        background-color: grey;
+    }
+
 
     @media screen and (min-width: 600px) {
         .grid-container {
@@ -69,6 +73,13 @@
     a:hover {
     	background-color: grey;
     	color: orange;
+    }
+
+    .details {
+        border: solid black 3px;
+        background-color: grey;
+        position: absolute;
+        //float: left;
     }
 
     </style>
@@ -120,7 +131,7 @@ $.ajax({
 class Preview extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {title: '', description: '', img: '', details: this.props.link};
+        this.state = {title: '', description: '', img: '', details: this.props.link, index: this.props.index};
     }
 
   componentDidMount(){
@@ -138,6 +149,7 @@ class Preview extends React.Component {
                     description: result.description,
                     img: result.image,
                     adress: result.url,
+
                   })
 
              }.bind(this)
@@ -147,8 +159,9 @@ class Preview extends React.Component {
 
   render(){
 
-        const tab = 
-        	    <table class="grid-item" onClick={() => console.log(JSON.stringify(this.state.details, null, 2))}>
+        const tab = <div>
+
+                <table class="grid-item" onClick={() => document.getElementById(this.state.index).innerHTML = JSON.stringify(this.state.details, null, 2)}>
     	              <thead>
     	              	<th>News</th>
     	              </thead>
@@ -156,11 +169,10 @@ class Preview extends React.Component {
     	              	<tr><td><h1>{this.state.title}</h1></td></tr>
     	              	<tr><td><h3>{this.state.description}</h3></td></tr>
     	              	<tr><td><img src={this.state.img}></img></td></tr>
-    	           
-
+                        
     	              </tbody>
                 </table>
-           
+           <div id={this.state.index} class="details"></div></div>
 
   return tab  
 }
@@ -174,7 +186,7 @@ class Preview extends React.Component {
     let items = [];
     for (var i=0; i<20; i++){
         const item = <div class="item">
-        	            	<Preview link={props.data.response.docs[i]}/>  	       
+        	            	<Preview link={props.data.response.docs[i]} index={i}/>  	       
         	        </div>
         items.push(item);
            
