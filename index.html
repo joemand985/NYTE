@@ -112,11 +112,7 @@ $.ajax({
   url: url,
   method: 'GET',
   success: (function(result) {
-    const root = document.getElementById('a')
-
-
-
-
+ 
 
 
 
@@ -124,12 +120,11 @@ $.ajax({
 class Preview extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {title: 'a', description: 'a', img: 'a'};
+        this.state = {title: 'a', description: 'a', img: 'a', details: this.props.link};
     }
 
   componentDidMount(){
-   //console.log('################component did mount###############');
-    var link = this.props.link
+    var link = this.props.link.web_url
     var url = "https://api.linkpreview.net?key=5a8daa00dcae5967162a0b2dc0483ad3d0f47dfb1e9ac&q=";
     url += link;
 
@@ -142,10 +137,11 @@ class Preview extends React.Component {
                     title: result.title,
                     description: result.description,
                     img: result.image,
-                    adress: result.url
+                    adress: result.url,
                   })
 
              }.bind(this)
+     
 })
 }
 
@@ -160,9 +156,13 @@ class Preview extends React.Component {
     	              	<tr><td><h1>{this.state.title}</h1></td></tr>
     	              	<tr><td><h3>{this.state.description}</h3></td></tr>
     	              	<tr><td><img src={this.state.img}></img></td></tr>
+    	           
+
     	              </tbody>
                 </table>
             </a>
+   console.log(JSON.stringify(this.state.details)); 
+
   return tab  
 }
 
@@ -175,11 +175,12 @@ class Preview extends React.Component {
     let items = [];
     for (var i=0; i<20; i++){
         const item = <div class="item">
-        	            	<Preview link={props.data.response.docs[i].web_url} />    	       
+        	            	<Preview link={props.data.response.docs[i]}/>  	       
         	        </div>
         items.push(item);
-            console.log(item)
+           
     }
+
     return <div class="grid-container">{items}</div>;
 }
 
