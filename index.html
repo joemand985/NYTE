@@ -21,6 +21,15 @@
     <!-- Custom CSS -->
     <style type="text/css">
 
+    //body {
+    	width: 100%;
+    }
+
+    #header {
+    	background-color: black;
+    	height: 150px;
+    }
+
     .grid-container {
         display: grid;
         grid-template-columns: auto;
@@ -31,8 +40,8 @@
 
     .grid-item {
         background-color: white;
-
         padding: 20px;
+        width: 100%;
     }
 
     .grid-item:hover {
@@ -76,10 +85,40 @@
     }
 
     .details {
-        border: solid black 3px;
+        padding: 10px;
         background-color: grey;
-        position: absolute;
-        //float: left;
+
+        position: relative;
+        top: 50%;
+        left: 0%;
+    }
+
+    header {
+    	position: relative;
+    }
+
+    //form {
+    	position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	transform: translateY(-50%);
+    }
+
+    form {
+    	position: absolute;
+    	top: 50%;
+    	transform: translateY(-50%);
+    	width: 100%;
+    }
+
+    input {
+
+    	width: 100%;
+
+    	padding: 12px 20px;
+    	width: 100%;
+    	display: block;
     }
 
     </style>
@@ -87,22 +126,19 @@
 
 <body>
 <!-- put all in react -->
-        <input type="text" id="year" placeholder="Year ..." >
-        <input type="text" id="month" placeholder="Month" >
-        <input type="submit" onclick="search()">
-
-        <div>
-
-        </div>
-
-    <div id="a"></div>
-    <div id="b"></div>
+<header id="header">
+	<form onsubmit="search()">
+        <input type="number" id="year" min=1851 max=2018 value=2018 placeholder="Year ..." />
+        <input type="text" id="month" min=1 max=12 value=1 placeholder="Month" />
+        <input type="submit" value="Find"/>
+    <form>
+</header>
 
 
-  <div id="comp">
-    <div id="pic"></div>
-    <div id="item"></div>
-</div>
+    <div id="root"></div>
+
+
+
 
 
 
@@ -110,6 +146,7 @@
 
 
 function search(){
+    event.preventDefault();
     var year = document.getElementById("year");
     var month = document.getElementById("month");
     var url = "https://api.nytimes.com/svc/archive/v1/";
@@ -158,10 +195,10 @@ class Preview extends React.Component {
 }
 
   render(){
-
-        const tab = <div>
-
-                <table class="grid-item" onClick={() => document.getElementById(this.state.index).innerHTML = JSON.stringify(this.state.details, null, 2)}>
+console.log(this.state.details)
+        const tab = 
+            <div>
+                <table class="grid-item" onClick={() => document.getElementById(this.state.index).innerHTML = JSON.stringify(this.state.details.web_url + '<br/>' + this.state.details.snippet + '<br/>' + this.state.details.byline.original + '<br/>' + this.state.details.headline.print_headline + '<br/>' + this.state.details.pub_date + '<br/>' + this.state.details.word_count , null, 2)}>
     	              <thead>
     	              	<th>News</th>
     	              </thead>
@@ -169,10 +206,13 @@ class Preview extends React.Component {
     	              	<tr><td><h1>{this.state.title}</h1></td></tr>
     	              	<tr><td><h3>{this.state.description}</h3></td></tr>
     	              	<tr><td><img src={this.state.img}></img></td></tr>
-                        
+
     	              </tbody>
-                </table>
-           <div id={this.state.index} class="details"></div></div>
+    	               </table>
+    	                <div id={this.state.index} class="details"></div>
+               
+            </div>
+           
 
   return tab  
 }
@@ -195,7 +235,7 @@ class Preview extends React.Component {
     return <div class="grid-container">{items}</div>;
 }
 
-    ReactDOM.render(<Geturls data={result}/>, document.getElementById('b'))
+    ReactDOM.render(<Geturls data={result}/>, document.getElementById('root'))
 })
 })
 
