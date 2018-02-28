@@ -22,7 +22,7 @@ $.ajax({
 class Preview extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {title: '', description: '', img: '', details: this.props.link, index: this.props.index};
+        this.state = {title: 'Loading...', description: 'Please wait', img: 'giphy.gif', details: this.props.link, index: this.props.index};
     }
 
   componentDidMount(){
@@ -63,11 +63,8 @@ console.log(this.state.details)
 
     	              </tbody>
     	               </table>
-    	                <div id={this.state.index} class="details"></div>
-               
+    	                <div id={this.state.index} class="details"></div>               
             </div>
-           
-
   return tab  
 }
 

@@ -1,4 +1,4 @@
-body {
+/*body {
     	width: 100%;
     }
 
@@ -96,5 +96,79 @@ body {
     	padding: 12px 20px;
     	width: 100%;
     	display: block;
+    }
+
+    */
+html, body { 
+    margin: 0; 
+    padding: 0; 
+    width: 100%; 
+    height: 100%;
+}
+
+header {
+    background-color: silver;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-title {
+    display: flex;
+    justify-content: flex-end;
+   // position: relative;
+}
+
+form {
+  width: auto;
+}
+
+input {
+    display: block;
+    width: 100%;
+}
+
+.grid-container {
+        display: grid;
+        grid-template-columns: auto;
+        //grid-gap: 10px;
+        //background-color: grey;
+       // padding: 10px;
+    }
+
+.grid-item {
+    border: black solid 1px;
+    margin: 5px;
+    //height: 10px;
+}
+
+.grid-item:hover {
+    background-color: silver;
+}
+
+.details {
+    background-color: pink;
+}
+
+@media screen and (min-width: 600px) {
+        .grid-container {
+            
+            grid-template-columns: auto auto;
+        }
+
+        .details {
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              width: 100%
+
+        }
+    }
+
+@media screen and (min-width: 800px) {
+        .grid-container {
+            
+            grid-template-columns: auto auto auto auto;
+        }
     }
 
