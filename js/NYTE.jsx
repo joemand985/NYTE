@@ -1,6 +1,7 @@
 
-function search(){
+function search(range){
     event.preventDefault();
+    //console.log(range)
     var year = document.getElementById("year");
     var month = document.getElementById("month");
     var url = "https://api.nytimes.com/svc/archive/v1/";
@@ -83,23 +84,34 @@ class Preview extends React.Component {
 
 }
 
-
+function Next(props){
+ console.log("h f n");
+ return <p>AAA</p>
+}
 
 
   function Geturls(props){
     let items = [];
+    console.log(props.range)
+    let counter = props.range;
     for (var i=0; i<20; i++){
+        counter += i// >next results function
         const item = <div class="item">
-        	            	<Preview link={props.data.response.docs[i]} index={i}/>  	       
+        	            	<Preview link={props.data.response.docs[counter]} index={i}/>  	       
         	        </div>
-        items.push(item);
-           
+        items.push(item);    
     }
 
-    return <div class="grid-container">{items}</div>;
+    return <div class="grid-container">{items}
+    <footer>
+
+    <input type="submit" value=">" onClick={() => search(2)}/>
+    results {props.data.response.docs.length}
+    </footer>
+    </div>;
 }
 
-    ReactDOM.render(<Geturls data={result}/>, document.getElementById('root'))
+    ReactDOM.render(<Geturls data={result} range={range}/>, document.getElementById('root'))
 })
 })
 
