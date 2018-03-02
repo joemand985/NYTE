@@ -108,15 +108,22 @@ html, body {
 
 header {
     background-color: silver;
-    height: 150px;
+    height: 140px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
+    padding: 15px;
 }
-.main-title {
-    display: flex;
-    justify-content: flex-end;
-   // position: relative;
+
+img {
+        height: 200px;
+        width: 250px;
+}
+
+#main-title {
+    position: absolute;
+    left: 5px;
+    top: 0px;
 }
 
 form {
@@ -128,18 +135,16 @@ input {
     width: 100%;
 }
 
+
+
 .grid-container {
         display: grid;
         grid-template-columns: auto;
-        //grid-gap: 10px;
-        //background-color: grey;
-       // padding: 10px;
     }
 
 .grid-item {
     border: black solid 1px;
     margin: 5px;
-    //height: 10px;
 }
 
 .grid-item:hover {
@@ -147,7 +152,10 @@ input {
 }
 
 .details {
-    background-color: pink;
+    display: none;
+    background-color: #99ff99;
+    word-wrap: break-word;
+    width: 70%;
 }
 
 @media screen and (min-width: 600px) {
