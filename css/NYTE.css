@@ -1,104 +1,4 @@
-/*body {
-    	width: 100%;
-    }
 
-    #header {
-    	background-color: black;
-    	height: 150px;
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: auto;
-        grid-gap: 10px;
-        background-color: grey;
-        padding: 10px;
-    }
-
-    .grid-item {
-        background-color: white;
-        padding: 20px;
-        width: 100%;
-    }
-
-    .grid-item:hover {
-        background-color: grey;
-    }
-
-
-    @media screen and (min-width: 600px) {
-        .grid-container {
-            
-            grid-template-columns: auto auto;
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        .grid-container {
-            
-            grid-template-columns: auto auto auto auto;
-        }
-    }
-
-
-    img {
-    	height: 200px;
-    	width: 250px;
-    }
-
-    .item {
-    	border: 1px solid black;
-    	//width: 500px;
-    }
-
-    a {
-    	text-decoration: none;
-    	color: black;
-    }
-
-    a:hover {
-    	background-color: grey;
-    	color: orange;
-    }
-
-    .details {
-        padding: 10px;
-        background-color: grey;
-
-        position: relative;
-        top: 50%;
-        left: 0%;
-    }
-
-    header {
-    	position: relative;
-    }
-
-    //form {
-    	position: absolute;
-    	top: 50%;
-    	left: 50%;
-    	transform: translateX(-50%);
-    	transform: translateY(-50%);
-    }
-
-    form {
-    	position: absolute;
-    	top: 50%;
-    	transform: translateY(-50%);
-    	width: 100%;
-    }
-
-    input {
-
-    	width: 100%;
-
-    	padding: 12px 20px;
-    	width: 100%;
-    	display: block;
-    }
-
-    */
 html, body { 
     margin: 0; 
     padding: 0; 
@@ -108,7 +8,8 @@ html, body {
 
 header {
     background-color: silver;
-    height: 140px;
+    width: 100%;
+    height: 150px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -126,13 +27,21 @@ img {
     top: 0px;
 }
 
+.heading {
+    margin: 5px;
+    padding: 0;
+}
+
 form {
-  width: auto;
+    width: 90%;
 }
 
 input {
     display: block;
-    width: 100%;
+    width: 90%;
+    height: 30px;
+    //padding: 10px;
+    margin: 5px;
 }
 
 
@@ -151,11 +60,38 @@ input {
     background-color: silver;
 }
 
+.item-container {
+    min-height: 400px
+}
+
 .details {
     display: none;
     background-color: #99ff99;
     word-wrap: break-word;
-    width: 70%;
+    width: 100%;
+}
+
+.hide {
+    background-color: grey;
+    height: 50px;
+}
+
+.page {
+    width: 20px;
+    display: inline;
+}
+
+footer {
+    width: 100%;
+    height: 50px;
+    background-color: silver;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination {
+
 }
 
 @media screen and (min-width: 600px) {
@@ -171,12 +107,29 @@ input {
               width: 100%
 
         }
+
+        form {
+          width: auto;
+        }
+
+        input {
+            display: inline;
+            width: 100px;
+        }
     }
 
 @media screen and (min-width: 800px) {
         .grid-container {
-            
-            grid-template-columns: auto auto auto auto;
+                      grid-template-columns: auto auto auto auto;
+        }
+
+        form {
+          width: auto;
+        }
+
+        input {
+            display: inline;
+            width: 100px;
         }
     }
 

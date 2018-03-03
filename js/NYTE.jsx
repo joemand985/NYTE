@@ -1,6 +1,10 @@
+var firstPage = 1;
 
-function search(range){
+
+function search(){
     event.preventDefault();
+    //firstPage = firstPage + 20;
+    //console.log(firstPage)
     //console.log(range)
     var year = document.getElementById("year");
     var month = document.getElementById("month");
@@ -92,26 +96,30 @@ function Next(props){
 
   function Geturls(props){
     let items = [];
-    console.log(props.range)
-    let counter = props.range;
     for (var i=0; i<20; i++){
-        counter += i// >next results function
+        const counter = firstPage + i;
+console.log(firstPage)
         const item = <div class="item">
         	            	<Preview link={props.data.response.docs[counter]} index={i}/>  	       
         	        </div>
         items.push(item);    
     }
 
-    return <div class="grid-container">{items}
+    return <div><div class="grid-container">{items}</div>
     <footer>
-
-    <input type="submit" value=">" onClick={() => search(2)}/>
-    results {props.data.response.docs.length}
+   
+    <div class="pagination">
+    <input class = "page" type="submit" value="<" onClick={() => { if(firstPage < 21){return};firstPage = firstPage - 20; search()}}/>
+     <span> Shown {firstPage} - {firstPage+19} page </span>
+    
+    <input class = "page" type="submit" value=">" onClick={() => { firstPage = firstPage + 20; search()}}/>
+    <span> of {props.data.response.docs.length} results </span>
+    </div>
     </footer>
     </div>;
 }
 
-    ReactDOM.render(<Geturls data={result} range={range}/>, document.getElementById('root'))
+    ReactDOM.render(<Geturls data={result} />, document.getElementById('root'))
 })
 })
 
