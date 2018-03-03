@@ -3,6 +3,7 @@ var firstPage = 1;
 
 function search(){
     event.preventDefault();
+   // document.getElementById("root").style.background-color = "coral";
     //firstPage = firstPage + 20;
     //console.log(firstPage)
     //console.log(range)
@@ -54,36 +55,52 @@ class Preview extends React.Component {
 }
 
   render(){
-    //var det=0
-//console.log(this.state.details)
-        const tab = 
-            <div>
-                <table class="grid-item" onClick={() => {
-               for (var i=0; i<20; i++){
-               document.getElementById(i).style.display = "none";
-           }
 
-               document.getElementById(this.state.index).style.display = "block"    
-            }
+    const j = {
+           'web url': this.state.details.web_url,
+           'snippet': this.state.details.snippet,
+           'original': this.state.details.byline.original,
+           'headline': this.state.details.headline.print_headline,
+           'date': this.state.details.pub_date,
+           'word count': this.state.details.word_count  
+    }
+
+    const tab = 
+        <div>
+            <table class="grid-item" onClick={
+                () => {
+                    const display = document.getElementById(this.state.index).style.display
+                    for (var i=0; i<20; i++){
+                       if(i === this.state.index){
+                            if(!display || display === "none"){
+                                document.getElementById(this.state.index).style.display = "block"
+                            } else {
+                                document.getElementById(this.state.index).style.display = "none"
+                            }       
+                       } else {
+                            document.getElementById(i).style.display = "none"
+                       }
+                    }
+                }
             }>
-    	              <thead>
-    	              	<th>News</th>
-    	              </thead>
-    	              <tbody>
-    	              	<tr><td><h1>{this.state.title}</h1></td></tr>
-    	              	<tr><td><h3>{this.state.description}</h3></td></tr>
-    	              	<tr><td><img src={this.state.img}></img></td></tr>
-
-                        <tr><td id={this.state.index} class="details" >{JSON.stringify(this.state.details.web_url + this.state.details.snippet + '<br/>' + this.state.details.byline.original + '<br/>' + this.state.details.headline.print_headline + '<br/>' + this.state.details.pub_date + '<br/>' + this.state.details.word_count , null, 2)}<input type="submit" value="Hide"  onClick={() => {
-                        document.getElementById(this.state.index).style.color = "red";
-                        document.getElementById(this.state.index).style.visibility = "hidden"
-                        }}/></td></tr>
-
-    	              </tbody>
-    	               </table>
-    	                              
-            </div>
-  return tab  
+              <thead>
+              	<th>News</th>
+              </thead>
+              <tbody>
+              	<tr><td><h1>{this.state.title}</h1></td></tr>
+              	<tr><td><h3>{this.state.description}</h3></td></tr>
+              	<tr><td><img src={this.state.img}></img></td></tr>
+                <tr>
+                    <td id={this.state.index} className="details" >
+                        <pre>{
+                            JSON.stringify(j, null, 2)
+                        }</pre>
+                    </td>
+                </tr>
+              </tbody>
+	       </table>                       
+        </div>
+  return tab 
 }
 
 }
