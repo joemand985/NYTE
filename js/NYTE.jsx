@@ -3,10 +3,6 @@ var firstPage = 1;
 
 function search(){
     event.preventDefault();
-   // document.getElementById("root").style.background-color = "coral";
-    //firstPage = firstPage + 20;
-    //console.log(firstPage)
-    //console.log(range)
     var year = document.getElementById("year");
     var month = document.getElementById("month");
     var url = "https://api.nytimes.com/svc/archive/v1/";
@@ -38,7 +34,7 @@ class Preview extends React.Component {
 
     
   $.ajax({
-    url: "https://api.linkpreview.net/?key=123456&q=https://www.google.com", // put url instead of link
+    url: url, //"https://api.linkpreview.net/?key=123456&q=https://www.google.com", // put <url,> instead of link
     success: function(result){
                   
                   this.setState({
@@ -100,26 +96,22 @@ class Preview extends React.Component {
               </tbody>
 	       </table>                       
         </div>
+        console.log("a")
   return tab 
 }
 
 }
 
-function Next(props){
- console.log("h f n");
- return <p>AAA</p>
-}
 
 
   function Geturls(props){
     let items = [];
-    for (var i=0; i<20; i++){
+    for (var i=0; i<6; i++){
         const counter = firstPage + i;
-console.log(firstPage)
         const item = <div class="item">
         	            	<Preview link={props.data.response.docs[counter]} index={i}/>  	       
         	        </div>
-        items.push(item);    
+        items.push(item);   
     }
 
     return <div><div class="grid-container">{items}</div>
@@ -132,6 +124,7 @@ console.log(firstPage)
     <input class = "page" type="submit" value=">" onClick={() => { firstPage = firstPage + 20; search()}}/>
     <span> of {props.data.response.docs.length} results </span>
     </div>
+    <img id="api_logo" src="poweredby_nytimes_150a.png"/>
     </footer>
     </div>;
 }

@@ -23,6 +23,13 @@ img {
         width: 250px;
 }
 
+#api_logo {
+    height: auto;
+    width: auto;
+    position: absolute;
+    right: 5px;
+}
+
 #main-title {
     position: absolute;
     left: 5px;
@@ -42,7 +49,6 @@ input {
     display: block;
     width: 90%;
     height: 30px;
-    //padding: 10px;
     margin: 5px;
 }
 
@@ -92,9 +98,10 @@ footer {
     justify-content: center;
 }
 
-.pagination {
-
+input {
+    border-radius: 5px;
 }
+
 
 @media screen and (min-width: 600px) {
         .grid-container {
